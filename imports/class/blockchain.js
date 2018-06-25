@@ -23,10 +23,15 @@ export default class Blockchain {
         return Blocks.findOne({}, { sort: { timestamp: -1, limit: 1 } });
     }
 
-    static async addBlock( _id, student ) {
+    static addBlock( _id, student ) {
+
+        if ( Blocks.findOne( _id ) ) {
+            console.log("This student with id " + _id + " already added");
+            return;
+        }
 
         // Get the key
-        const keys = await generateKey( _id );
+        const keys = generateKey( _id );
 
         // Encrypt the student data
         student.encrypt( keys.private_key );
