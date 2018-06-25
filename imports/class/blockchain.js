@@ -5,11 +5,11 @@ import { Blocks } from '/imports/collection';
 
 export default class Blockchain {
 
-    static createGenesisBlock( data ) {
+    static createGenesisBlock( _id, data ) {
 
         if ( Blocks.find().count() === 0 ) {
 
-            const { ...rest } = new Block( data, "0" );
+            const { ...rest } = new Block( _id, data, "0" );
             Blocks.insert( rest );
 
         }
@@ -32,10 +32,7 @@ export default class Blockchain {
 
         if ( Blocks.find().count() !== 0 ) {
 
-            const difficulty = 2;
-
-            newBlock.previousHash = this.getLastestBlock().hash;
-            newBlock.mineBlock( difficulty );
+            newBlock.previousHash = this.getLastestBlock().signedHash;
 
             const { ...rest } = newBlock;
             Blocks.insert( rest );
@@ -44,9 +41,18 @@ export default class Blockchain {
 
     } // End of addBlock()
 
-    static calculateHash({ data, previousHash, timestamp, nonce }) {
+    static calculateHash({ _id, data, previousHash, timestamp }) {
 
-        return SHA256( JSON.stringify( data ) + previousHash + timestamp + nonce ).toString();
+        return SHA256(
+            _id +
+            JSON.stringify( data ) +
+            previousHash +
+            timestamp
+        ).toString();
+
+    }
+
+    static signHash() {
 
     }
 
@@ -59,7 +65,7 @@ export default class Blockchain {
             const currentBlock = Blockchain[i];
             const previousBlock = Blockchain[i - 1];
 
-            if ( currentBlock.hash !== this.calculateHash( currentBlock ) )
+            if ( currentBlock.signedHash !== this.calculateHash( currentBlock ) )
                 return false;
 
             if ( currentBlock.previousHash !== previousBlock.hash )

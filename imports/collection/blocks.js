@@ -1,8 +1,14 @@
 import SimpleSchema from "simpl-schema";
+import base64Img from 'base64-img';
 
 export default Blocks = new Mongo.Collection( 'blocks' );
 
 StudentSchema = new SimpleSchema({
+
+    imageProfile: {
+        type: String,
+        optional: true
+    },
 
     firstName: {
         type: String,
@@ -14,9 +20,8 @@ StudentSchema = new SimpleSchema({
         trim: true
     },
 
-    age: {
-        type: Number,
-        min: 0
+    dateOfBirth: {
+        type: Date
     },
 
     gender: {
@@ -24,17 +29,17 @@ StudentSchema = new SimpleSchema({
         allowedValues: ["Male", "Female"]
     },
 
-    startYear: {
-        type: Number
-    },
-
-    endYear: {
+    graduatedYear: {
         type: Number
     }
 
 });
 
 BlockSchema = new SimpleSchema({
+
+    _id: {
+        type: String
+    },
 
     data: {
         type: StudentSchema
@@ -45,16 +50,12 @@ BlockSchema = new SimpleSchema({
         trim: true
     },
 
-    hash: {
+    signedHash: {
         type: String,
         trim: true
     },
 
     timestamp: {
-        type: Number
-    },
-
-    nonce: {
         type: Number
     }
 

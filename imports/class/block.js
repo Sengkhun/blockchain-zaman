@@ -1,37 +1,15 @@
-import SHA256 from 'crypto-js/sha256';
+import { calculateHash, encryptHash } from '../functions/hash';
+import { privateKey } from '../functions/zamanKey';
 
 export default class Block {
 
-    constructor( data, previousHash = "" ) {
+    constructor( _id, data, previousHash = "" ) {
 
+        this._id = _id;
         this.data = data;
         this.previousHash = previousHash;
         this.timestamp = Date.now();
-        this.hash = this.calculateHash();
-        this.nonce = 0;
-
-    }
-
-    calculateHash() {
-
-        return SHA256( JSON.stringify( this.data ) + this.previousHash + this.timestamp + this.nonce ).toString();
-
-    }
-
-    encryptData() {
-
-    }
-
-    mineBlock( difficulty ) {
-
-        while ( this.hash.substring( 0, difficulty ) !== Array( difficulty + 1 ).join( "0" ) ) {
-
-            this.nonce++;
-            this.hash = this.calculateHash();
-
-        }
-
-        console.log( "Block mined: " + this.hash );
+        this.signedHash = encryptHash( privateKey, calculateHash( _id, data, previousHash, this.timestamp ) );
 
     }
 

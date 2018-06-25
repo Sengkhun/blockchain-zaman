@@ -5,8 +5,6 @@ Template.home.events({
 
         let studentId = $('#student_id').val();
         let publicKey = $('#public_key').val();
-        let image = $('#image').prop('files');
-        alert(image);
 
         // alert("Student ID: " + studentId + "\n" + "Public Key: " + publicKey);
     }
