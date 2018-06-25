@@ -3,58 +3,39 @@ import SHA256 from 'crypto-js/sha256';
 import { Block, Student }  from './index.js';
 import { Blocks } from '/imports/collection';
 
+import { generateKey } from '/imports/functions/generateStudentKeys';
+
 export default class Blockchain {
 
-    static createGenesisBlock( _id, data ) {
-
-        if ( Blocks.find().count() === 0 ) {
-
-            const { ...rest } = new Block( _id, data, "0" );
-            Blocks.insert( rest );
-
-        }
-
-    }
-
     static getEntireBlocks() {
-
         return Blocks.find().fetch();
-
     }
 
     static getLastestBlock() {
-
         return Blocks.findOne({}, { sort: { timestamp: -1, limit: 1 } });
-
     }
 
-    static addBlock( newBlock ) {
+    static async addBlock( _id, student ) {
 
+        // Get the key
+        const keys = await generateKey( _id );
+
+        // Encrypt the student data
+        student.encrypt( keys.private_key );
+
+        // create new block
+        const newBlock = new Block( _id, student );
+
+        // Check if the block is not genesis block
         if ( Blocks.find().count() !== 0 ) {
-
             newBlock.previousHash = this.getLastestBlock().signedHash;
-
-            const { ...rest } = newBlock;
-            Blocks.insert( rest );
-
         }
 
+        // insert to database
+        const { ...rest } = newBlock;
+        Blocks.insert( rest );
+
     } // End of addBlock()
-
-    static calculateHash({ _id, data, previousHash, timestamp }) {
-
-        return SHA256(
-            _id +
-            JSON.stringify( data ) +
-            previousHash +
-            timestamp
-        ).toString();
-
-    }
-
-    static signHash() {
-
-    }
 
     static isChainValid() {
 

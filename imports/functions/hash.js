@@ -16,21 +16,21 @@ export const calculateHash = ( block ) => {
 
 };
 
-export const encryptHash = ( privateKey, hash ) => {
+export const encryptByPrivateKey = ( privateKey, data ) => {
 
     const key = ursa.createPrivateKey( privateKey );
 
-    const encrypted = key.privateEncrypt( hash, 'utf8', 'base64' );
-
+    const encrypted = key.privateEncrypt( data, 'utf8', 'base64' );
+    
     return encrypted;
 
 };
 
-export const decryptHash = ( publicKey, encryptedHash ) => {
+export const decryptByPublicKey = ( publicKey, encryptedData ) => {
 
     const pub = ursa.createPublicKey( publicKey );
 
-    const decrypted = pub.publicDecrypt( encryptedHash, 'base64', 'utf8' );
+    const decrypted = pub.publicDecrypt( encryptedData, 'base64', 'utf8' );
 
     return decrypted;
 

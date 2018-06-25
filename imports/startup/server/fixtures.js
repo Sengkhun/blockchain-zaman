@@ -1,9 +1,7 @@
-import { Meteor } from 'meteor/meteor';
-import path from 'path';
-import base64Img from 'base64-img';
-
 import { Block, Blockchain, Student }  from '/imports/class';
 import { Blocks } from '/imports/collection';
+
+import { generateKey } from '/imports/functions/generateStudentKeys';
 
 Meteor.startup(() => {
 
@@ -11,13 +9,9 @@ Meteor.startup(() => {
     let student2 = new Student( "", "Vitou", "Phy", new Date('1996-06-02'), "Male", 2018 );
     let student3 = new Student( "", "Keanghok", "Lay", new Date('1996-08-12'), "Male", 2018 );
 
-    // new Block( "1673648", student2 )
+    // Blockchain.addBlock( "1673648", student1 );
+    // Blockchain.addBlock( "1263748", student2 );
 
-    // Blockchain.createGenesisBlock( "1508984", student1 );
-    //
-    // console.log( "Block 2: ");
-    // Blockchain.addBlock( new Block( "1673648", student2 ) );
-    //
     // console.log( "Block 3: ");
     // Blockchain.addBlock( new Block( "47268934", student3 ) );
     //

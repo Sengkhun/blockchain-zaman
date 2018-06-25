@@ -21,16 +21,15 @@ StudentSchema = new SimpleSchema({
     },
 
     dateOfBirth: {
-        type: Date
+        type: String
     },
 
     gender: {
-        type: String,
-        allowedValues: ["Male", "Female"]
+        type: String
     },
 
     graduatedYear: {
-        type: Number
+        type: String
     }
 
 });
