@@ -1,0 +1,102 @@
+@import './variables';
+
+.primary-color { background-color: $primary-color-1 !important };
+
+/* label focus color */
+.input-field textarea:focus + label,
+ .input-field input[type=text]:focus + label {
+     color: $primary-color-1 !important;
+}
+/* label underline focus color */
+.input-field textarea:focus,
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid $primary-color-1 !important;
+    box-shadow: 0 1px 0 0 $primary-color-1 !important;
+}
+
+.padding-left {
+    padding-left: 2em !important;
+}
+
+.section-container {
+    padding: 1em;
+    margin: 1em;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.nav-wrapper {
+    display: block;
+
+    a.brand-logo {
+        height: 100%;
+
+        .zaman-logo {
+            height: 100%;
+        }
+
+    }
+
+}
+
+.home-container {
+    @extend .section-container;
+}
+
+.verticle-line {
+    border: 0 solid $grey-color-2;
+    border-width: 0 1px 0 0;
+}
+
+.title {
+    font-size: 2em;
+    font-weight: bold;
+    color: $primary-color-1;
+}
+
+.title-logo {
+    height: 2em;
+    vertical-align: bottom;
+}
+
+.description {
+    font-size: 1em;
+    color: $grey-color-3;
+}
+
+.result-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: $primary-color-1;
+    margin-bottom: 1em;
+}
+
+.no-result {
+
+    .title {
+        font-size: 1.2em;
+    }
+
+}
+
+.image-profile {
+    img {
+        border-radius: 50%;
+        width: 10em;
+    }
+}
+
+.table-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+
+.student-info-table {
+    width: 70%;
+
+    th {
+        width: 10em;
+        padding-left: 1em !important;
+    }
+}

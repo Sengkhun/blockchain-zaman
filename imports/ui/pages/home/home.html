@@ -1,0 +1,71 @@
+<template name="home">
+
+    <div class="home-container z-depth-1">
+
+        <div class="row">
+
+            <!-- Title -->
+            <div class="center">
+
+                <div class="title">
+                    <img class="title-logo" src="http://localhost:3000/logo.png"> Graduated Students
+                </div>
+                <div class="description">To find current graduated students, please input the student ID and the public key below!</div>
+
+            </div><br><br>
+
+            <!-- Search Form -->
+            <div class="col s12 m6 l6">
+
+                <form id="form_search_student">
+
+                    <div class="file-field input-field">
+                        <div class="btn primary-color">
+                            <span>Upload</span>
+                            <input id="image" type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input placeholder="15020108" id="student_id" type="text" class="active">
+                        <label for="student_id" class="active">Student ID</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <textarea id="public_key" type="text" class="materialize-textarea"></textarea>
+                        <label for="public_key"><i class="material-icons">vpn_key</i>Public Key</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <button class="submit btn waves-effect primary-color waves-light col s12">
+                            Search
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- Result -->
+            <div class="col s12 m6 l6 center">
+
+
+                <div class="result-title">Result</div>
+
+                {{ > student_info }}
+
+                <!-- <div class="no-result">
+                    <div class="title">No Data</div>
+                    <div class="description">Make sure you have input the right ID and public key!</div>
+                </div> -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>

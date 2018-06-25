@@ -1,0 +1,87 @@
+<template name="add_student">
+
+    <div class="section-container z-depth-1">
+
+        <div class="row">
+
+            <!-- Search Form -->
+            <div class="col s12 m6 l6">
+
+                <form id="form_add_student">
+
+                    <div class="title">Student Information</div>
+
+                    <div class="center">
+                        <img id="image-profile" src="http://localhost:3000/default-image-profile.png">
+                    </div>
+
+                    <div class="file-field input-field">
+                        <div class="btn primary-color">
+                            <span>Upload</span>
+                            <input type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="student_id" type="text">
+                            <label for="student_id">ID</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="first_name" type="text">
+                            <label for="first_name">First Name</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="last_name" type="text">
+                            <label for="last_name">Last Name</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <select>
+                                <option value="" disabled selected>Choose your option</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                            </select>
+                            <label>Gender</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input type="text" class="datepicker">
+                        </div>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <button class="submit btn waves-effect primary-color waves-light col s12">
+                            Search
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- Result -->
+            <div class="col s12 m6 l6 center">
+
+
+                <div class="result-title">Result</div>
+
+                <!-- <div class="no-result">
+                    <div class="title">No Data</div>
+                    <div class="description">Make sure you have input the right ID and public key!</div>
+                </div> -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>

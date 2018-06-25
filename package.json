@@ -1,0 +1,24 @@
+{
+  "name": "blockchain",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.42",
+    "babel-runtime": "^6.26.0",
+    "base64-img": "^1.0.4",
+    "core-js": "^2.5.7",
+    "core.js": "^0.4.2",
+    "crypto-js": "^3.1.9-1",
+    "es6": "0.0.7",
+    "fs": "0.0.1-security",
+    "keypair": "^1.0.1",
+    "materialize-css": "^1.0.0-rc.2",
+    "meteor-node-stubs": "^0.3.2",
+    "node-es6": "^0.3.1",
+    "node-rsa": "^1.0.0",
+    "path": "^0.12.7",
+    "simpl-schema": "^1.5.0"
+  }
+}
