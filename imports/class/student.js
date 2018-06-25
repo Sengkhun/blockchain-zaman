@@ -1,16 +1,16 @@
 import ursa from 'ursa';
-import { encryptByPrivateKey } from '../functions/hash';
+import { encryptByPrivateKey, decryptByPublicKey } from '../functions/hash';
 
 export default class Student {
 
     constructor( imageProfile, firstName, lastName, dateOfBirth, gender, graduatedYear ) {
 
-        this.imageProfile = imageProfile;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
-        this.graduatedYear = graduatedYear;
+        this.imageProfile = imageProfile.toString();
+        this.firstName = firstName.toString();
+        this.lastName = lastName.toString();
+        this.dateOfBirth = dateOfBirth.toString();
+        this.gender = gender.toString();
+        this.graduatedYear = graduatedYear.toString();
 
     }
 
@@ -19,9 +19,20 @@ export default class Student {
         this.imageProfile = encryptByPrivateKey( privateKey, this.imageProfile );
         this.firstName = encryptByPrivateKey( privateKey, this.firstName );
         this.lastName = encryptByPrivateKey( privateKey, this.lastName );
-        this.dateOfBirth = encryptByPrivateKey( privateKey, this.dateOfBirth.toString() );
+        this.dateOfBirth = encryptByPrivateKey( privateKey, this.dateOfBirth );
         this.gender = encryptByPrivateKey( privateKey, this.gender );
-        this.graduatedYear = encryptByPrivateKey( privateKey, this.graduatedYear.toString() );
+        this.graduatedYear = encryptByPrivateKey( privateKey, this.graduatedYear );
+
+    }
+
+    decrypt( publicKey ) {
+
+        this.imageProfile = decryptByPublicKey( publicKey, this.imageProfile );
+        this.firstName = decryptByPublicKey( publicKey, this.firstName );
+        this.lastName = decryptByPublicKey( publicKey, this.lastName );
+        this.dateOfBirth = decryptByPublicKey( publicKey, this.dateOfBirth );
+        this.gender = decryptByPublicKey( publicKey, this.gender );
+        this.graduatedYear = decryptByPublicKey( publicKey, this.graduatedYear );
 
     }
 

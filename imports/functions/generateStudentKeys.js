@@ -2,10 +2,12 @@ import rsaKeygen from 'rsa-keygen';
 import fs from 'fs';
 import path from 'path';
 
+const rootPath = __meteor_bootstrap__.serverDir.split(path.sep + '.meteor')[0];
+const keyLocation = rootPath + "/private/keys/students/";
+
 export const generateKey = ( id ) => {
 
-    const rootPath = __meteor_bootstrap__.serverDir.split(path.sep + '.meteor')[0];
-    const location = rootPath + "/private/keys/students/" + id;
+    const location = keyLocation + id;
 
     if ( !fs.existsSync( location ) ){
 
@@ -37,7 +39,7 @@ export const generateKey = ( id ) => {
 const createKey = ( location ) => {
 
     const keys = rsaKeygen.generate();
-    console.log(keys);
+
     fs.appendFile( location + "/key", keys.private_key, function( err ) {
         if( err ) console.log( err );
     });
@@ -47,5 +49,15 @@ const createKey = ( location ) => {
     });
 
     return keys;
+
+};
+
+export const getKey = ( id ) => {
+
+    const location = keyLocation + id;
+    const private_key = fs.readFileSync( location + "/key" );
+    const public_key = fs.readFileSync( location + "/key.pub" );
+
+    return { private_key, public_key };
 
 }

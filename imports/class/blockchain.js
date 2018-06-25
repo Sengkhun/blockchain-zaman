@@ -3,7 +3,15 @@ import SHA256 from 'crypto-js/sha256';
 import { Block, Student }  from './index.js';
 import { Blocks } from '/imports/collection';
 
-import { generateKey } from '/imports/functions/generateStudentKeys';
+import {
+    calculateHash,
+    encryptByPrivateKey,
+    decryptByPublicKey
+} from '/imports/functions/hash';
+
+import { generateKey, getKey } from '/imports/functions/generateStudentKeys';
+
+import { publicKey } from '../functions/zamanKey';
 
 export default class Blockchain {
 
@@ -37,6 +45,25 @@ export default class Blockchain {
 
     } // End of addBlock()
 
+    static findBlock( _id, publicKey ) {
+
+        const block = Blocks.findOne( _id );
+
+        if ( block === 'undefined' || !block )
+            throw "Not id is matched!";
+
+        const key = getKey( _id );
+
+        const { imageProfile, firstName, lastName, dateOfBirth, gender, graduatedYear } = block.data;
+        const student = new Student( imageProfile, firstName, lastName, dateOfBirth, gender, graduatedYear );
+
+        // Decrypt the student data
+        student.decrypt( key.public_key );
+
+        return student;
+
+    }
+
     static isChainValid() {
 
         const Blockchain = this.getEntireBlocks();
@@ -46,11 +73,13 @@ export default class Blockchain {
             const currentBlock = Blockchain[i];
             const previousBlock = Blockchain[i - 1];
 
-            if ( currentBlock.signedHash !== this.calculateHash( currentBlock ) )
-                return false;
+            const { _id, data, previousHash, timestamp } = currentBlock;
+            const hash = decryptByPublicKey( publicKey, currentBlock.signedHash );
+            const newHash = calculateHash( _id, data, previousHash, timestamp );
 
-            if ( currentBlock.previousHash !== previousBlock.hash )
-                return false;
+            if ( hash !== newHash ) return false;
+
+            if ( currentBlock.previousHash !== previousBlock.signedHash ) return false;
 
         }
 
