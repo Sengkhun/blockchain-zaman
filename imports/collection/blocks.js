@@ -1,5 +1,6 @@
 import SimpleSchema from "simpl-schema";
 import base64Img from 'base64-img';
+import { Blockchain } from '/imports/class';
 
 export default Blocks = new Mongo.Collection( 'blocks' );
 
@@ -61,3 +62,17 @@ BlockSchema = new SimpleSchema({
 });
 
 Blocks.attachSchema( BlockSchema );
+
+if ( Meteor.isServer ) {
+    Meteor.publish( 'allBlocks', function () {
+        return Blocks.find();
+    });
+}
+
+Meteor.methods({
+
+    'block.find' ( blockId, publicKey ) {
+        return Blockchain.findBlock( blockId, publicKey );
+    }
+
+});

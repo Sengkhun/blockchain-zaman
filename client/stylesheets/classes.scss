@@ -4,7 +4,7 @@
 
 /* label focus color */
 .input-field textarea:focus + label,
- .input-field input[type=text]:focus + label {
+.input-field input[type=text]:focus + label {
      color: $primary-color-1 !important;
 }
 /* label underline focus color */
@@ -99,4 +99,8 @@
         width: 10em;
         padding-left: 1em !important;
     }
+}
+
+.display-off {
+    display: none;
 }

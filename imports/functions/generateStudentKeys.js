@@ -40,13 +40,8 @@ const createKey = ( location ) => {
 
     const keys = rsaKeygen.generate();
 
-    fs.appendFile( location + "/key", keys.private_key, function( err ) {
-        if( err ) console.log( err );
-    });
-
-    fs.appendFile( location + "/key.pub", keys.public_key, function( err ) {
-        if( err ) console.log( err );
-    });
+    fs.writeFileSync( location + "/key", keys.private_key );
+    fs.writeFileSync( location + "/key.pub", keys.public_key );
 
     return keys;
 

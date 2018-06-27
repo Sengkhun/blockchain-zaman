@@ -52,20 +52,28 @@ export default class Blockchain {
 
     static findBlock( _id, publicKey ) {
 
-        const block = Blocks.findOne( _id );
+        try {
 
-        if ( block === 'undefined' || !block )
-            throw "Not id is matched!";
+            const block = Blocks.findOne( _id );
 
-        const key = getKey( _id );
+            if ( block === 'undefined' || !block )
+                throw "Not id is matched!";
 
-        const { imageProfile, firstName, lastName, dateOfBirth, gender, graduatedYear } = block.data;
-        const student = new Student( imageProfile, firstName, lastName, dateOfBirth, gender, graduatedYear );
+            // const key = getKey( _id );
 
-        // Decrypt the student data
-        student.decrypt( key.public_key );
+            const { imageProfile, firstName, lastName, dateOfBirth, gender, graduatedYear } = block.data;
+            const student = new Student( imageProfile, firstName, lastName, dateOfBirth, gender, graduatedYear );
 
-        return student;
+            // Decrypt the student data
+            student.decrypt( publicKey );
+
+            return { ok: true, student };
+
+        } catch (e) {
+
+            return { ok:false, error: e };
+
+        }
 
     }
 
